@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.emailback.mapper.DeptMapper">
+
+<insert id="addDept" parameterType="com.example.emailback.entity.Dept">
+    insert into dept(userId,mailbox,mailServerHost,mailServerPort,pop3Server,protocol,userName,password,fromAddress)
+        values (#{userId},#{mailbox},#{mailServerHost},#{mailServerPort},#{pop3Server},#{protocol},#{userName},#{password},#{fromAddress})
+</insert>
+
+<delete id="deleteById">
+    delete from dept where id=#{id}
+</delete>
+
+<update id="updateDeptById" parameterType="com.example.emailback.entity.Dept">
+    update dept set mailbox=#{mailbox},mailServerHost=#{mailServerHost},mailServerPort=#{mailServerPort},pop3Server=#{pop3Server},protocol=#{protocol},userName=#{userName},password=#{password},fromAddress=#{fromAddress} where id=#{id}
+</update>
+
+<select id="findAllDept" resultType="com.example.emailback.entity.Dept" >
+    select * from dept where 1=1 and userId = #{userId}
+    <if test="userName!=null">
+        and userName like concat('%',#{userName},'%')
+    </if>
+</select>
+
+</mapper>
